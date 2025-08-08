@@ -96,7 +96,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <p>&copy; 2024 Amperflex. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Amperflex. Todos os direitos reservados.</p>
             <div className="footer-bottom-links">
               <a href="#">Política de Privacidade</a>
               <a href="#">Termos de Uso</a>
