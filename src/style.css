@@ -444,6 +444,56 @@ p {
   font-size: 1.1rem;
 }
 
+.filters {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid #FF6B35;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.1);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-group span {
+  font-weight: 500;
+  color: #2c3e50;
+  white-space: nowrap;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-buttons button {
+  padding: 0.5rem 1rem;
+  border: 2px solid #dee2e6;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.filter-buttons button:hover {
+  border-color: #FF6B35;
+  background: #fff5f2;
+}
+
+.filter-buttons button.active {
+  border-color: #FF6B35;
+  background: #FF6B35;
+  color: white;
+}
+
 .category-filter {
   margin-bottom: 3rem;
   padding: 2rem;
