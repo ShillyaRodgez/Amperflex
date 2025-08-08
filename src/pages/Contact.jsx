@@ -32,7 +32,7 @@ const Contact = () => {
     message += `*Assunto:* ${formData.subject}\n\n`
     message += `*Mensagem:*\n${formData.message}`
     
-    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/551199888822?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
     
     // Reset form
@@ -51,35 +51,35 @@ const Contact = () => {
       icon: <Phone size={32} />,
       title: 'Telefone',
       info: [
-        { label: 'WhatsApp / Celular', value: '(11) 9999-9999' },
+        { label: 'WhatsApp / Celular', value: '(11)99888-8220' },
         { label: 'Telefone Fixo', value: '(11) 3333-3333' }
       ],
-      action: { text: 'Ligar Agora', href: 'tel:+5511999999999' }
+      action: { text: 'Ligar Agora', href: 'tel:+551199888822' }
     },
     {
       icon: <MessageCircle size={32} />,
       title: 'WhatsApp',
       info: [
-        { label: 'Atendimento Rápido', value: '(11) 9999-9999' },
+        { label: 'Atendimento Rápido', value: '(11)99888-8220' },
         { label: 'Disponível', value: 'Seg a Sex: 8h às 18h' }
       ],
-      action: { text: 'Abrir WhatsApp', href: 'https://wa.me/5511999999999' }
+      action: { text: 'Abrir WhatsApp', href: 'https://wa.me/551199888822' }
     },
     {
       icon: <Mail size={32} />,
       title: 'E-mail',
       info: [
-        { label: 'Vendas', value: 'vendas@amperflex.com.br' },
+        { label: 'Vendas', value: 'vendas@amperflexcondutores.com.br' },
         { label: 'Suporte', value: 'contato@amperflex.com.br' }
       ],
-      action: { text: 'Enviar E-mail', href: 'mailto:vendas@amperflex.com.br' }
+      action: { text: 'Enviar E-mail', href: 'mailto:vendas@amperflexcondutores.com.br' }
     },
     {
       icon: <MapPin size={32} />,
       title: 'Endereço',
       info: [
-        { label: 'Rua dos Eletricistas, 123', value: 'São Paulo, SP' },
-        { label: 'CEP', value: '01234-567' }
+        { label: 'Rua Tapuias, 660', value: 'Diadema - SP' },
+        { label: 'CEP', value: '09990-280' }
       ],
       action: { text: 'Ver no Mapa', href: '/localizacao' }
     }

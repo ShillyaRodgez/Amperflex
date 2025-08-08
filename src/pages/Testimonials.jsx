@@ -233,7 +233,7 @@ const Testimonials = () => {
               <a href="/produtos" className="btn btn-primary">
                 Ver Produtos
               </a>
-              <a href="https://wa.me/5511999999999" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/551199888822" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
                 Solicitar Orçamento
               </a>
             </div>
@@ -245,7 +245,7 @@ const Testimonials = () => {
           <div className="invitation-content">
             <h4>Você é nosso cliente?</h4>
             <p>Compartilhe sua experiência conosco e ajude outros profissionais a conhecer nosso trabalho!</p>
-            <a href="https://wa.me/5511999999999" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/551199888822" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
               Enviar Depoimento
             </a>
           </div>

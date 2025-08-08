@@ -64,22 +64,22 @@ const Footer = () => {
               <div className="contact-item">
                 <Phone size={18} />
                 <div>
-                  <p>(11) 9999-9999</p>
+                  <p>(11)99888-8220</p>
                   <p>(11) 3333-3333</p>
                 </div>
               </div>
               <div className="contact-item">
                 <Mail size={18} />
                 <div>
-                  <p>vendas@amperflex.com.br</p>
+                  <p>vendas@amperflexcondutores.com.br</p>
                   <p>contato@amperflex.com.br</p>
                 </div>
               </div>
               <div className="contact-item">
                 <MapPin size={18} />
                 <div>
-                  <p>Rua dos Eletricistas, 123</p>
-                  <p>São Paulo, SP - CEP 01234-567</p>
+                  <p>Rua Tapuias, 660</p>
+                  <p>Diadema - SP - CEP 09990-280</p>
                 </div>
               </div>
               <div className="contact-item">

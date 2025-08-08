@@ -18,9 +18,9 @@ const Location = () => {
               <div className="map-placeholder">
                 <MapPin size={48} />
                 <h3>Mapa Interativo</h3>
-                <p>Rua dos Eletricistas, 123<br />São Paulo, SP - CEP 01234-567</p>
+                <p>Rua Tapuias, 660<br />Diadema - SP - CEP: 09990-280</p>
                 <a 
-                  href="https://maps.google.com/?q=Rua+dos+Eletricistas+123+São+Paulo+SP" 
+                  href="https://maps.google.com/?q=Rua+Tapuias+660+Diadema+SP" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="btn btn-primary"
@@ -42,10 +42,10 @@ const Location = () => {
                 <div className="card-content">
                   <h3>Endereço</h3>
                   <p>
-                    Rua dos Eletricistas, 123<br />
+                    Rua Tapuias, 660<br />
                     Bairro Industrial<br />
-                    São Paulo, SP<br />
-                    CEP: 01234-567
+                    Diadema - SP<br />
+                    CEP 09990-280
                   </p>
                 </div>
               </div>
@@ -85,7 +85,7 @@ const Location = () => {
                     <div className="contact-item">
                       <Phone size={18} />
                       <div>
-                        <p>(11) 9999-9999</p>
+                        <p>(11)99888-8220</p>
                         <span>WhatsApp / Celular</span>
                       </div>
                     </div>
@@ -99,7 +99,7 @@ const Location = () => {
                     <div className="contact-item">
                       <Mail size={18} />
                       <div>
-                        <p>vendas@amperflex.com.br</p>
+                        <p>vendas@amperflexcondutores.com.br</p>
                         <span>E-mail Comercial</span>
                       </div>
                     </div>
@@ -198,10 +198,10 @@ const Location = () => {
             <h3>Prefere Atendimento Online?</h3>
             <p>Nossa equipe também está disponível para atendimento via WhatsApp, e-mail ou telefone</p>
             <div className="cta-buttons">
-              <a href="https://wa.me/5511999999999" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/551199888822" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>
-              <a href="tel:+5511999999999" className="btn btn-secondary">
+              <a href="tel:+551199888822" className="btn btn-secondary">
                 Ligar Agora
               </a>
             </div>

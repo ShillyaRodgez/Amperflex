@@ -60,7 +60,7 @@ const Cart = () => {
     }
     
     const message = sendWhatsAppOrder()
-    const whatsappUrl = `https://wa.me/5511999999999?text=${message}`
+    const whatsappUrl = `https://wa.me/551199888822?text=${message}`
     window.open(whatsappUrl, '_blank')
   }
 
