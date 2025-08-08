@@ -32,7 +32,7 @@ const Contact = () => {
     message += `*Assunto:* ${formData.subject}\n\n`
     message += `*Mensagem:*\n${formData.message}`
     
-    const whatsappUrl = `https://wa.me/551199888822?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/5511966361328?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
     
     // Reset form
@@ -51,19 +51,19 @@ const Contact = () => {
       icon: <Phone size={32} />,
       title: 'Telefone',
       info: [
-        { label: 'WhatsApp / Celular', value: '(11)99888-8220' },
+        { label: 'WhatsApp / Celular', value: '(11) 96636-1328' },
         { label: 'Telefone Fixo', value: '(11) 3333-3333' }
       ],
-      action: { text: 'Ligar Agora', href: 'tel:+551199888822' }
+      action: { text: 'Ligar Agora', href: 'tel:+5511966361328' }
     },
     {
       icon: <MessageCircle size={32} />,
       title: 'WhatsApp',
       info: [
-        { label: 'Atendimento Rápido', value: '(11)99888-8220' },
+        { label: 'Atendimento Rápido', value: '(11) 96636-1328' },
         { label: 'Disponível', value: 'Seg a Sex: 8h às 18h' }
       ],
-      action: { text: 'Abrir WhatsApp', href: 'https://wa.me/551199888822' }
+      action: { text: 'Abrir WhatsApp', href: 'https://wa.me/5511966361328' }
     },
     {
       icon: <Mail size={32} />,

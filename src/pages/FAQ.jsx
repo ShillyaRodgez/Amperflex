@@ -37,7 +37,7 @@ const FAQ = () => {
         {
           id: 5,
           question: 'Como solicitar um orçamento?',
-          answer: 'Você pode solicitar orçamento através do nosso site adicionando produtos ao carrinho e finalizando via WhatsApp, ou entrando em contato diretamente pelos nossos canais: telefone (11)99888-8220, e-mail vendas@amperflexcondutores.com.br ou visitando nossa loja física.'
+          answer: 'Você pode solicitar orçamento através do nosso site adicionando produtos ao carrinho e finalizando via WhatsApp, ou entrando em contato diretamente pelos nossos canais: telefone (11) 96636-1328, e-mail vendas@amperflexcondutores.com.br ou visitando nossa loja física.'
         },
         {
           id: 6,
@@ -208,11 +208,11 @@ const FAQ = () => {
             <h3>Não encontrou sua resposta?</h3>
             <p>Nossa equipe está pronta para esclarecer todas as suas dúvidas</p>
             <div className="cta-buttons">
-              <a href="https://wa.me/551199888822" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/5511966361328" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
                 <MessageCircle size={20} />
                 WhatsApp
               </a>
-              <a href="tel:+551199888822" className="btn btn-secondary">
+              <a href="tel:+5511966361328" className="btn btn-secondary">
                 Ligar Agora
               </a>
             </div>

@@ -85,7 +85,7 @@ const Location = () => {
                     <div className="contact-item">
                       <Phone size={18} />
                       <div>
-                        <p>(11)99888-8220</p>
+                        <p>(11) 96636-1328</p>
                         <span>WhatsApp / Celular</span>
                       </div>
                     </div>
@@ -198,10 +198,10 @@ const Location = () => {
             <h3>Prefere Atendimento Online?</h3>
             <p>Nossa equipe também está disponível para atendimento via WhatsApp, e-mail ou telefone</p>
             <div className="cta-buttons">
-              <a href="https://wa.me/551199888822" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/5511966361328" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>
-              <a href="tel:+551199888822" className="btn btn-secondary">
+              <a href="tel:+5511966361328" className="btn btn-secondary">
                 Ligar Agora
               </a>
             </div>

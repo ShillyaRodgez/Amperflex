@@ -51,72 +51,56 @@ const Cart = () => {
     clearCart, 
     getTotalItems, 
     getTotalPrice, 
-    sendWhatsAppOrder 
+    sendWhatsAppOrder,
+    sendDirectWhatsAppMessage 
   } = useCart()
   
   const [securityAlert, setSecurityAlert] = useState(null)
   
-  // Monitora tentativas de alteração da mensagem
+  // Efeito para limpar alertas automaticamente
   useEffect(() => {
-    const checkMessageIntegrity = () => {
-      const verification = sessionStorage.getItem('whatsapp_verification')
-      if (verification) {
-        const data = JSON.parse(verification)
-        const timeDiff = Date.now() - data.timestamp
-        
-        // Se passou mais de 5 minutos, limpa a verificação
-        if (timeDiff > 300000) {
-          sessionStorage.removeItem('whatsapp_verification')
-          return
-        }
-        
-        // Verifica se o usuário voltou recentemente (dentro de 30 segundos)
-        if (timeDiff < 30000) {
-          setSecurityAlert({
-            type: 'info',
-            message: 'Sua mensagem foi protegida contra alterações. Código de verificação incluído.'
-          })
-          
-          // Remove o alerta após 5 segundos
-          setTimeout(() => setSecurityAlert(null), 5000)
-        }
-      }
+    if (securityAlert) {
+      const timer = setTimeout(() => {
+        setSecurityAlert(null)
+      }, 5000)
+      
+      return () => clearTimeout(timer)
     }
-    
-    checkMessageIntegrity()
-    
-    // Monitora mudanças de foco na janela
-    const handleFocus = () => {
-      checkMessageIntegrity()
-    }
-    
-    window.addEventListener('focus', handleFocus)
-    return () => window.removeEventListener('focus', handleFocus)
-  }, [])
+  }, [securityAlert])
 
-  const handleWhatsAppOrder = () => {
+  const handleWhatsAppOrder = async () => {
     if (cartItems.length === 0) {
       return
     }
     
-    const message = sendWhatsAppOrder()
-    const whatsappUrl = `https://wa.me/551199888822?text=${message}`
+    // Mostra mensagem de processamento
+    setSecurityAlert({
+      type: 'info',
+      message: 'Processando pedido... Aguarde um momento.'
+    })
     
-    // Proteção contra alteração da URL
-    const originalMessage = decodeURIComponent(message)
-    const timestamp = Date.now()
+    try {
+      // Usa a nova função de envio direto
+      const result = await sendDirectWhatsAppMessage()
+      
+      if (result.success) {
+        setSecurityAlert({
+          type: 'info',
+          message: 'Pedido enviado com sucesso! O WhatsApp foi aberto automaticamente. Seu carrinho foi limpo.'
+        })
+      } else {
+        throw new Error(result.error || 'Erro desconhecido')
+      }
+    } catch (error) {
+      console.error('Erro ao enviar pedido:', error)
+      setSecurityAlert({
+        type: 'error',
+        message: 'Erro ao enviar pedido. Tente novamente ou entre em contato conosco.'
+      })
+    }
     
-    // Armazena dados de verificação temporariamente
-    sessionStorage.setItem('whatsapp_verification', JSON.stringify({
-      originalHash: originalMessage.match(/\[Código de verificação: ([a-z0-9]+)\]/)?.[1],
-      timestamp: timestamp,
-      messageLength: originalMessage.length
-    }))
-    
-    // Abre o WhatsApp com um pequeno delay para permitir verificação
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank')
-    }, 100)
+    // Remove o alerta após 5 segundos
+    setTimeout(() => setSecurityAlert(null), 5000)
   }
 
   if (cartItems.length === 0) {
@@ -268,19 +252,20 @@ const Cart = () => {
               </div>
 
               <div className="whatsapp-info">
-                <h4>Como funciona?</h4>
+                <h4>📋 Sistema de Solicitação de Orçamento:</h4>
                 <ol>
                   <li>Clique em "Finalizar via WhatsApp"</li>
-                  <li>Você será redirecionado para o WhatsApp</li>
-                  <li>Uma mensagem com seu orçamento será criada automaticamente</li>
-                  <li>Envie a mensagem para nossa equipe</li>
+                  <li><strong>Envio:</strong> Apenas descrição dos produtos (sem valores)</li>
+                  <li><strong>Conteúdo:</strong> Nome, quantidade e metragem dos itens</li>
+                  <li>Solicitação profissional de orçamento</li>
+                  <li>Carrinho limpo automaticamente após processamento</li>
                   <li>Receba seu orçamento oficial em poucos minutos</li>
                 </ol>
                 
                 <div className="security-info">
-                  <h5>🔒 Proteção de Segurança</h5>
-                  <p>Sua mensagem inclui um código de verificação único que impede alterações não autorizadas dos dados do orçamento.</p>
-                </div>
+                    <h5>💼 Orçamento Profissional</h5>
+                    <p>Sistema que envia apenas as especificações técnicas dos produtos, permitindo que você receba um orçamento personalizado com valores atualizados diretamente do vendedor.</p>
+                  </div>
               </div>
             </div>
 

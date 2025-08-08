@@ -28,7 +28,7 @@ const Header = () => {
             <div className="contact-info">
               <span className="contact-item">
                 <Phone size={18} />
-                (11)99888-8220
+                (11) 96636-1328
               </span>
               <span className="contact-item">
                 <MapPin size={18} />

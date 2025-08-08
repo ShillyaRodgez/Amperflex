@@ -69,7 +69,7 @@ const Home = () => {
                   Ver Produtos
                   <ArrowRight size={20} />
                 </Link>
-                <a href="tel:+551199888822" className="btn btn-secondary">
+                <a href="tel:+5511966361328" className="btn btn-secondary">
                   <Phone size={20} />
                   Falar com Vendedor
                 </a>
@@ -171,7 +171,7 @@ const Home = () => {
               <Link to="/contato" className="btn btn-primary">
                 Solicitar Orçamento
               </Link>
-              <a href="https://wa.me/551199888822" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/5511966361328" className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>
             </div>

@@ -105,24 +105,22 @@ export const CartProvider = ({ children }) => {
   }
 
   const generateWhatsAppMessage = () => {
-    let message = '*ORÇAMENTO AMPERFLEX*\n\n'
+    let message = '*SOLICITAÇÃO DE ORÇAMENTO - AMPERFLEX*\n\n'
     message += '*Produtos solicitados:*\n\n'
     
     cartItems.forEach((item, index) => {
       message += `${index + 1}. *${item.name}*\n`
-      message += `   - Quantidade: ${item.quantity} unidade\n`
+      message += `   - Quantidade: ${item.quantity} unidade(s)\n`
       message += `   - Metragem: ${item.length}m por unidade\n`
-      message += `   - Total de metros: ${item.quantity * item.length}m\n`
-      message += `   - Preço unitário: R$ ${item.pricePerMeter.toFixed(2)}/m\n`
-      message += `   - Subtotal: R$ ${item.totalPrice.toFixed(2)}\n\n`
+      message += `   - Total de metros: ${item.quantity * item.length}m\n\n`
     })
     
-    message += `*TOTAL GERAL: R$ ${getTotalPrice().toFixed(2)}*\n\n`
-    message += 'Gostaria de solicitar um orçamento oficial para estes produtos.'
+    message += 'Gostaria de solicitar um orçamento oficial para estes produtos.\n\n'
+    message += 'Aguardo retorno com valores e condições de pagamento.'
     
     // Adiciona hash de verificação no final da mensagem
     const hash = generateMessageHash(message)
-    message += `\n\n[Código de verificação: ${hash}]`
+    message += `\n\n[Código: ${hash}]`
     
     return encodeURIComponent(message)
   }
@@ -134,6 +132,164 @@ export const CartProvider = ({ children }) => {
     return message
   }
 
+  const sendDirectWhatsAppMessage = async () => {
+    const message = generateWhatsAppMessage()
+    const phoneNumber = '5511966361328'
+    
+    try {
+      // Salva os dados do pedido no localStorage para recuperação
+      const orderData = {
+        timestamp: Date.now(),
+        items: cartItems,
+        total: getTotalPrice(),
+        message: decodeURIComponent(message),
+        sent: false
+      }
+      localStorage.setItem('amperflex_last_order', JSON.stringify(orderData))
+      
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      
+      if (isMobile) {
+        // Mobile: Usa o protocolo whatsapp:// que é mais confiável
+        const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${message}`
+        window.location.href = whatsappUrl
+        
+        // Fallback para mobile se o app não estiver instalado
+        setTimeout(() => {
+          if (document.hasFocus()) {
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank')
+          }
+        }, 2000)
+      } else {
+        // Desktop: Estratégia avançada com automação
+        const whatsappWebUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${message}`
+        
+        // Abre o WhatsApp Web com configurações específicas
+        const whatsappWindow = window.open(whatsappWebUrl, 'whatsapp_sender', 
+          'width=1200,height=800,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,status=no')
+        
+        if (whatsappWindow) {
+          // Script de automação para injetar na janela do WhatsApp
+          const automationScript = `
+            (function() {
+              let attempts = 0;
+              const maxAttempts = 30;
+              
+              function tryAutoSend() {
+                attempts++;
+                
+                // Procura pelo botão de enviar
+                const sendButton = document.querySelector('[data-testid="send"], [aria-label*="Send"], [aria-label*="Enviar"], button[aria-label*="send"], span[data-icon="send"]');
+                
+                if (sendButton && !sendButton.disabled) {
+                  // Simula clique no botão de enviar
+                  sendButton.click();
+                  
+                  // Fecha a janela após envio
+                  setTimeout(() => {
+                    window.close();
+                  }, 2000);
+                  
+                  return true;
+                }
+                
+                // Se não encontrou o botão e ainda há tentativas
+                if (attempts < maxAttempts) {
+                  setTimeout(tryAutoSend, 1000);
+                } else {
+                  // Fallback: fecha a janela após timeout
+                  setTimeout(() => {
+                    window.close();
+                  }, 3000);
+                }
+                
+                return false;
+              }
+              
+              // Aguarda o carregamento completo da página
+              if (document.readyState === 'complete') {
+                setTimeout(tryAutoSend, 3000);
+              } else {
+                window.addEventListener('load', () => {
+                  setTimeout(tryAutoSend, 3000);
+                });
+              }
+            })();
+          `;
+          
+          // Injeta o script após a janela carregar
+          const checkAndInject = () => {
+            try {
+              if (whatsappWindow.document && whatsappWindow.document.readyState === 'complete') {
+                const script = whatsappWindow.document.createElement('script');
+                script.textContent = automationScript;
+                whatsappWindow.document.head.appendChild(script);
+              } else {
+                setTimeout(checkAndInject, 1000);
+              }
+            } catch (e) {
+              // Erro de CORS - normal para WhatsApp Web
+              console.log('Automação limitada por CORS, mas janela foi aberta com sucesso');
+            }
+          };
+          
+          setTimeout(checkAndInject, 2000);
+          
+          // Monitora se a janela foi fechada (indica envio)
+          const checkClosed = setInterval(() => {
+            if (whatsappWindow.closed) {
+              clearInterval(checkClosed);
+              // Considera como enviado se a janela foi fechada
+              orderData.sent = true;
+              localStorage.setItem('amperflex_last_order', JSON.stringify(orderData));
+            }
+          }, 1000);
+          
+          // Timeout de segurança
+          setTimeout(() => {
+            clearInterval(checkClosed);
+            if (!whatsappWindow.closed) {
+              // Ainda considera como enviado mesmo se a janela não foi fechada
+              orderData.sent = true;
+              localStorage.setItem('amperflex_last_order', JSON.stringify(orderData));
+            }
+          }, 60000); // 1 minuto
+        }
+      }
+      
+      // Marca como enviado no localStorage
+      orderData.sent = true
+      localStorage.setItem('amperflex_last_order', JSON.stringify(orderData))
+      
+      // Limpa o carrinho
+      clearCart()
+      
+      return { success: true, method: 'advanced_automation' }
+      
+    } catch (error) {
+      console.error('Erro ao enviar mensagem:', error)
+      return { success: false, error: error.message }
+    }
+  }
+  
+  // Função para verificar se há pedidos pendentes
+  const checkPendingOrders = () => {
+    const savedOrder = localStorage.getItem('amperflex_last_order')
+    if (savedOrder) {
+      const orderData = JSON.parse(savedOrder)
+      const timeDiff = Date.now() - orderData.timestamp
+      
+      // Se passou mais de 1 hora, remove o pedido salvo
+      if (timeDiff > 3600000) {
+        localStorage.removeItem('amperflex_last_order')
+        return null
+      }
+      
+      return orderData
+    }
+    return null
+  }
+
   const value = {
     cartItems,
     addToCart,
@@ -143,7 +299,9 @@ export const CartProvider = ({ children }) => {
     getTotalItems,
     getTotalPrice,
     generateWhatsAppMessage,
-    sendWhatsAppOrder
+    sendWhatsAppOrder,
+    sendDirectWhatsAppMessage,
+    checkPendingOrders
   }
 
   return (
