@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, MessageCircle, AlertTriangle } from 'lucide-react'
-import { useCart } from '../context/CartContext'
+import { useCart, formatCurrency } from '../context/CartContext'
 
 // Ícones SVG para cada categoria de produto (versão maior para o carrinho)
 const CableIconLarge = () => (
@@ -170,7 +170,7 @@ const Cart = () => {
                       Metragem: {item.length}m por unidade
                     </p>
                     <p className="item-price">
-                      R$ {item.pricePerMeter.toFixed(2)} por metro
+                      {formatCurrency(item.pricePerMeter)} por metro
                     </p>
                   </div>
 
@@ -196,7 +196,7 @@ const Cart = () => {
                       <span>Total: {item.quantity * item.length}m</span>
                     </div>
                     <div className="calc-line total">
-                      <span>R$ {item.totalPrice.toFixed(2)}</span>
+                      <span>{formatCurrency(item.totalPrice)}</span>
                     </div>
                   </div>
 
@@ -232,7 +232,7 @@ const Cart = () => {
                 
                 <div className="summary-line total">
                   <span>Total Geral:</span>
-                  <span>R$ {getTotalPrice().toFixed(2)}</span>
+                  <span>{formatCurrency(getTotalPrice())}</span>
                 </div>
               </div>
 
@@ -283,7 +283,7 @@ const Cart = () => {
                       <span>• Quantidade: {item.quantity} unidade</span>
                       <span>• Metragem: {item.length}m por unidade</span>
                       <span>• Total: {item.quantity * item.length}m</span>
-                      <span>• Subtotal: R$ {item.totalPrice.toFixed(2)}</span>
+                      <span>• Subtotal: {formatCurrency(item.totalPrice)}</span>
                     </div>
                   </div>
                 ))}

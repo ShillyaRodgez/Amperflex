@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ShoppingCart, Plus, Minus, Filter } from 'lucide-react'
-import { useCart } from '../context/CartContext'
+import { useCart, formatCurrency } from '../context/CartContext'
 
 // Ícones SVG para cada categoria de produto
 const CableIcon = () => (
@@ -181,7 +181,7 @@ const Products = () => {
       setLength(10)
     }
 
-    const totalPrice = (product.pricePerMeter * quantity * length).toFixed(2)
+    const totalPrice = product.pricePerMeter * quantity * length
 
     return (
       <div className="product-card">
@@ -190,7 +190,7 @@ const Products = () => {
             <span className="product-icon">{getProductIcon(product.category)}</span>
             <span className="product-category">{product.type}</span>
           </div>
-          <span className="product-price">R$ {product.pricePerMeter.toFixed(2)}/m</span>
+          <span className="product-price">{formatCurrency(product.pricePerMeter)}/m</span>
         </div>
         
         <h3 className="product-title">{product.name}</h3>
@@ -251,7 +251,7 @@ const Products = () => {
         
         <div className="product-total">
           <p>Total de metros: {quantity * length}m</p>
-          <p className="total-price">Total: R$ {totalPrice}</p>
+          <p className="total-price">Total: {formatCurrency(totalPrice)}</p>
         </div>
         
         <button 

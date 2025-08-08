@@ -2,6 +2,14 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const CartContext = createContext()
 
+// Função para formatar valores em moeda brasileira
+export const formatCurrency = (value) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(value)
+}
+
 export const useCart = () => {
   const context = useContext(CartContext)
   if (!context) {
