@@ -49,17 +49,7 @@ const Header = () => {
             {/* Logo */}
             <Link to="/" className="logo">
               <div className="logo-content">
-                <div className="logo-icon">
-                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    <rect width="40" height="40" rx="8" fill="#FF6B35"/>
-                    <path d="M10 15h20M10 20h20M10 25h20" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                    <circle cx="32" cy="20" r="3" fill="#FFD700"/>
-                  </svg>
-                </div>
-                <div className="logo-text">
-                  <h1>Amperflex</h1>
-                  <span>Flexibilidade que impulsiona</span>
-                </div>
+                <img src="/amperflex.png" alt="Amperflex Logo" width="180" height="100" />
               </div>
             </Link>
 

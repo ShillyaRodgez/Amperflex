@@ -11,17 +11,7 @@ const Footer = () => {
           <div className="footer-section">
             <div className="footer-logo">
               <div className="logo-content">
-                <div className="logo-icon">
-                  <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
-                    <rect width="40" height="40" rx="8" fill="#FF6B35"/>
-                    <path d="M10 15h20M10 20h20M10 25h20" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                    <circle cx="32" cy="20" r="3" fill="#FFD700"/>
-                  </svg>
-                </div>
-                <div className="logo-text">
-                  <h3>Amperflex</h3>
-                  <span>Cabos & Fios</span>
-                </div>
+                <img src="/amperflex.png" alt="Amperflex Logo" width="150" height="100" />
               </div>
             </div>
             <p className="footer-description">
