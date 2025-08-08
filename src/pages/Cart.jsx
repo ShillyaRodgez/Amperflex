@@ -111,6 +111,10 @@ const Cart = () => {
             <div className="cart-items-list">
               {cartItems.map((item, index) => (
                 <div key={`${item.id}-${item.length}`} className="cart-item">
+                  <div className="product-icon-large">
+                    {getProductIconLarge(item.category)}
+                  </div>
+                  
                   <div className="item-info">
                     <h4 className="item-name">{item.name}</h4>
                     <p className="item-specs">
@@ -121,44 +125,39 @@ const Cart = () => {
                     </p>
                   </div>
 
-                  <div className="item-controls">
-                    <div className="quantity-control">
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.length, item.quantity - 1)}
-                        className="qty-btn"
-                        disabled={item.quantity <= 1}
-                      >
-                        <Minus size={16} />
-                      </button>
-                      <span className="qty-display">{item.quantity}</span>
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.length, item.quantity + 1)}
-                        className="qty-btn"
-                      >
-                        <Plus size={16} />
-                      </button>
-                    </div>
-
-                    <div className="item-calculations">
-                      <div className="product-icon-large">
-                        {getProductIconLarge(item.category)}
-                      </div>
-                      <div className="calc-line">
-                        <span>Total de metros: {item.quantity * item.length}m</span>
-                      </div>
-                      <div className="calc-line total">
-                        <span>Subtotal: R$ {item.totalPrice.toFixed(2)}</span>
-                      </div>
-                    </div>
-
+                  <div className="quantity-control">
                     <button 
-                      onClick={() => removeFromCart(item.id, item.length)}
-                      className="remove-btn"
-                      title="Remover item"
+                      onClick={() => updateQuantity(item.id, item.length, item.quantity - 1)}
+                      className="qty-btn"
+                      disabled={item.quantity <= 1}
                     >
-                      <Trash2 size={18} />
+                      <Minus size={16} />
+                    </button>
+                    <span className="qty-display">{item.quantity}</span>
+                    <button 
+                      onClick={() => updateQuantity(item.id, item.length, item.quantity + 1)}
+                      className="qty-btn"
+                    >
+                      <Plus size={16} />
                     </button>
                   </div>
+
+                  <div className="item-calculations">
+                    <div className="calc-line">
+                      <span>Total: {item.quantity * item.length}m</span>
+                    </div>
+                    <div className="calc-line total">
+                      <span>R$ {item.totalPrice.toFixed(2)}</span>
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => removeFromCart(item.id, item.length)}
+                    className="remove-btn"
+                    title="Remover item"
+                  >
+                    <Trash2 size={18} />
+                  </button>
                 </div>
               ))}
             </div>
