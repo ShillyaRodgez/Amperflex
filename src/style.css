@@ -744,6 +744,7 @@ p {
 
 .product-colors {
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .product-colors h4 {
@@ -756,6 +757,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  justify-content: center;
 }
 
 .color-tag {
