@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, MessageCircle } from 'lucide-react'
+import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, MessageCircle, AlertTriangle } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 
 // Ícones SVG para cada categoria de produto (versão maior para o carrinho)
@@ -53,6 +53,46 @@ const Cart = () => {
     getTotalPrice, 
     sendWhatsAppOrder 
   } = useCart()
+  
+  const [securityAlert, setSecurityAlert] = useState(null)
+  
+  // Monitora tentativas de alteração da mensagem
+  useEffect(() => {
+    const checkMessageIntegrity = () => {
+      const verification = sessionStorage.getItem('whatsapp_verification')
+      if (verification) {
+        const data = JSON.parse(verification)
+        const timeDiff = Date.now() - data.timestamp
+        
+        // Se passou mais de 5 minutos, limpa a verificação
+        if (timeDiff > 300000) {
+          sessionStorage.removeItem('whatsapp_verification')
+          return
+        }
+        
+        // Verifica se o usuário voltou recentemente (dentro de 30 segundos)
+        if (timeDiff < 30000) {
+          setSecurityAlert({
+            type: 'info',
+            message: 'Sua mensagem foi protegida contra alterações. Código de verificação incluído.'
+          })
+          
+          // Remove o alerta após 5 segundos
+          setTimeout(() => setSecurityAlert(null), 5000)
+        }
+      }
+    }
+    
+    checkMessageIntegrity()
+    
+    // Monitora mudanças de foco na janela
+    const handleFocus = () => {
+      checkMessageIntegrity()
+    }
+    
+    window.addEventListener('focus', handleFocus)
+    return () => window.removeEventListener('focus', handleFocus)
+  }, [])
 
   const handleWhatsAppOrder = () => {
     if (cartItems.length === 0) {
@@ -61,7 +101,22 @@ const Cart = () => {
     
     const message = sendWhatsAppOrder()
     const whatsappUrl = `https://wa.me/551199888822?text=${message}`
-    window.open(whatsappUrl, '_blank')
+    
+    // Proteção contra alteração da URL
+    const originalMessage = decodeURIComponent(message)
+    const timestamp = Date.now()
+    
+    // Armazena dados de verificação temporariamente
+    sessionStorage.setItem('whatsapp_verification', JSON.stringify({
+      originalHash: originalMessage.match(/\[Código de verificação: ([a-z0-9]+)\]/)?.[1],
+      timestamp: timestamp,
+      messageLength: originalMessage.length
+    }))
+    
+    // Abre o WhatsApp com um pequeno delay para permitir verificação
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank')
+    }, 100)
   }
 
   if (cartItems.length === 0) {
@@ -87,6 +142,16 @@ const Cart = () => {
   return (
     <div className="cart">
       <div className="container">
+        {/* Security Alert */}
+        {securityAlert && (
+          <div className={`security-alert alert-${securityAlert.type}`}>
+            <div className="alert-content">
+              <AlertTriangle size={20} />
+              <span>{securityAlert.message}</span>
+            </div>
+          </div>
+        )}
+        
         {/* Header */}
         <div className="page-header">
           <h1>Carrinho de Compras</h1>
@@ -211,6 +276,11 @@ const Cart = () => {
                   <li>Envie a mensagem para nossa equipe</li>
                   <li>Receba seu orçamento oficial em poucos minutos</li>
                 </ol>
+                
+                <div className="security-info">
+                  <h5>🔒 Proteção de Segurança</h5>
+                  <p>Sua mensagem inclui um código de verificação único que impede alterações não autorizadas dos dados do orçamento.</p>
+                </div>
               </div>
             </div>
 

@@ -93,6 +93,17 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((total, item) => total + item.totalPrice, 0)
   }
 
+  // Função para gerar hash simples da mensagem
+  const generateMessageHash = (message) => {
+    let hash = 0
+    for (let i = 0; i < message.length; i++) {
+      const char = message.charCodeAt(i)
+      hash = ((hash << 5) - hash) + char
+      hash = hash & hash // Converte para 32bit integer
+    }
+    return Math.abs(hash).toString(36)
+  }
+
   const generateWhatsAppMessage = () => {
     let message = '*ORÇAMENTO AMPERFLEX*\n\n'
     message += '*Produtos solicitados:*\n\n'
@@ -108,6 +119,10 @@ export const CartProvider = ({ children }) => {
     
     message += `*TOTAL GERAL: R$ ${getTotalPrice().toFixed(2)}*\n\n`
     message += 'Gostaria de solicitar um orçamento oficial para estes produtos.'
+    
+    // Adiciona hash de verificação no final da mensagem
+    const hash = generateMessageHash(message)
+    message += `\n\n[Código de verificação: ${hash}]`
     
     return encodeURIComponent(message)
   }
