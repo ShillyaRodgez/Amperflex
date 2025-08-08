@@ -11,16 +11,15 @@ const Cart = () => {
     clearCart, 
     getTotalItems, 
     getTotalPrice, 
-    generateWhatsAppMessage 
+    sendWhatsAppOrder 
   } = useCart()
 
   const handleWhatsAppOrder = () => {
     if (cartItems.length === 0) {
-      alert('Seu carrinho está vazio!')
       return
     }
     
-    const message = generateWhatsAppMessage()
+    const message = sendWhatsAppOrder()
     const whatsappUrl = `https://wa.me/5511999999999?text=${message}`
     window.open(whatsappUrl, '_blank')
   }
@@ -184,7 +183,7 @@ const Cart = () => {
                       <span className="item-name">{item.name}</span>
                     </div>
                     <div className="detail-specs">
-                      <span>• Quantidade: {item.quantity} unidade(s)</span>
+                      <span>• Quantidade: {item.quantity} unidade</span>
                       <span>• Metragem: {item.length}m por unidade</span>
                       <span>• Total: {item.quantity * item.length}m</span>
                       <span>• Subtotal: R$ {item.totalPrice.toFixed(2)}</span>

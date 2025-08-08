@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const CartContext = createContext()
 
@@ -11,7 +11,25 @@ export const useCart = () => {
 }
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([])
+  // Load cart from localStorage on initialization
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem('amperflex-cart')
+      return savedCart ? JSON.parse(savedCart) : []
+    } catch (error) {
+      console.error('Error loading cart from localStorage:', error)
+      return []
+    }
+  })
+
+  // Save cart to localStorage whenever cartItems changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('amperflex-cart', JSON.stringify(cartItems))
+    } catch (error) {
+      console.error('Error saving cart to localStorage:', error)
+    }
+  }, [cartItems])
 
   const addToCart = (product, quantity, length) => {
     const existingItem = cartItems.find(
@@ -59,6 +77,12 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCartItems([])
+    // Also clear localStorage
+    try {
+      localStorage.removeItem('amperflex-cart')
+    } catch (error) {
+      console.error('Error clearing cart from localStorage:', error)
+    }
   }
 
   const getTotalItems = () => {
@@ -75,7 +99,7 @@ export const CartProvider = ({ children }) => {
     
     cartItems.forEach((item, index) => {
       message += `${index + 1}. *${item.name}*\n`
-      message += `   - Quantidade: ${item.quantity} unidade(s)\n`
+      message += `   - Quantidade: ${item.quantity} unidade\n`
       message += `   - Metragem: ${item.length}m por unidade\n`
       message += `   - Total de metros: ${item.quantity * item.length}m\n`
       message += `   - Preço unitário: R$ ${item.pricePerMeter.toFixed(2)}/m\n`
@@ -88,6 +112,13 @@ export const CartProvider = ({ children }) => {
     return encodeURIComponent(message)
   }
 
+  const sendWhatsAppOrder = () => {
+    const message = generateWhatsAppMessage()
+    // Clear cart after generating the message for WhatsApp
+    clearCart()
+    return message
+  }
+
   const value = {
     cartItems,
     addToCart,
@@ -96,7 +127,8 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getTotalItems,
     getTotalPrice,
-    generateWhatsAppMessage
+    generateWhatsAppMessage,
+    sendWhatsAppOrder
   }
 
   return (
