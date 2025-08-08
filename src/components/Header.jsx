@@ -27,11 +27,11 @@ const Header = () => {
           <div className="top-bar-content">
             <div className="contact-info">
               <span className="contact-item">
-                <Phone size={16} />
+                <Phone size={18} />
                 (11) 9999-9999
               </span>
               <span className="contact-item">
-                <MapPin size={16} />
+                <MapPin size={18} />
                 São Paulo, SP
               </span>
             </div>
@@ -69,7 +69,7 @@ const Header = () => {
             {/* Cart and Mobile Menu */}
             <div className="header-actions">
               <Link to="/carrinho" className="cart-button">
-                <ShoppingCart size={24} />
+                <ShoppingCart size={28} />
                 {getTotalItems() > 0 && (
                   <span className="cart-badge">{getTotalItems()}</span>
                 )}
@@ -79,7 +79,7 @@ const Header = () => {
                 className="mobile-menu-button"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
             </div>
           </div>
