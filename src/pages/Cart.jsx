@@ -3,6 +3,46 @@ import { Link } from 'react-router-dom'
 import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, MessageCircle } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 
+// Ícones SVG para cada categoria de produto (versão maior para o carrinho)
+const CableIconLarge = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 12h18M3 8h18M3 16h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <circle cx="21" cy="12" r="2" fill="currentColor"/>
+    <circle cx="21" cy="8" r="2" fill="currentColor"/>
+    <circle cx="21" cy="16" r="2" fill="currentColor"/>
+  </svg>
+)
+
+const WireIconLarge = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 12h20" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+    <circle cx="22" cy="12" r="2" fill="currentColor"/>
+    <path d="M2 8h20M2 16h20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+  </svg>
+)
+
+const ConductorIconLarge = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 10h20M2 12h20M2 14h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <rect x="20" y="9" width="3" height="6" rx="1.5" fill="currentColor"/>
+    <path d="M2 8h20M2 16h20" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.3"/>
+  </svg>
+)
+
+// Função para obter o ícone grande baseado na categoria
+const getProductIconLarge = (category) => {
+  switch (category) {
+    case 'cabos':
+      return <CableIconLarge />
+    case 'fios':
+      return <WireIconLarge />
+    case 'condutores':
+      return <ConductorIconLarge />
+    default:
+      return <CableIconLarge />
+  }
+}
+
 const Cart = () => {
   const { 
     cartItems, 
@@ -100,6 +140,9 @@ const Cart = () => {
                     </div>
 
                     <div className="item-calculations">
+                      <div className="product-icon-large">
+                        {getProductIconLarge(item.category)}
+                      </div>
                       <div className="calc-line">
                         <span>Total de metros: {item.quantity * item.length}m</span>
                       </div>

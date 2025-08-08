@@ -509,11 +509,23 @@ p {
   margin-bottom: 1rem;
 }
 
-.product-category {
+.product-category-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   background: #e9ecef;
-  color: #495057;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
+}
+
+.product-icon {
+  display: flex;
+  align-items: center;
+  color: #FF6B35;
+}
+
+.product-category {
+  color: #495057;
   font-size: 0.8rem;
   font-weight: 500;
 }
@@ -817,6 +829,14 @@ p {
 
 .item-calculations {
   text-align: center;
+}
+
+.product-icon-large {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  color: #FF6B35;
 }
 
 .remove-btn {

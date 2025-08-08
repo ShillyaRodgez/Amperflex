@@ -2,6 +2,46 @@ import React, { useState, useEffect } from 'react'
 import { ShoppingCart, Plus, Minus, Filter } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 
+// Ícones SVG para cada categoria de produto
+const CableIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 12h18M3 8h18M3 16h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <circle cx="21" cy="12" r="2" fill="currentColor"/>
+    <circle cx="21" cy="8" r="2" fill="currentColor"/>
+    <circle cx="21" cy="16" r="2" fill="currentColor"/>
+  </svg>
+)
+
+const WireIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 12h20" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+    <circle cx="22" cy="12" r="2" fill="currentColor"/>
+    <path d="M2 8h20M2 16h20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+  </svg>
+)
+
+const ConductorIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 10h20M2 12h20M2 14h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <rect x="20" y="9" width="3" height="6" rx="1.5" fill="currentColor"/>
+    <path d="M2 8h20M2 16h20" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.3"/>
+  </svg>
+)
+
+// Função para obter o ícone baseado na categoria
+const getProductIcon = (category) => {
+  switch (category) {
+    case 'cabos':
+      return <CableIcon />
+    case 'fios':
+      return <WireIcon />
+    case 'condutores':
+      return <ConductorIcon />
+    default:
+      return <CableIcon />
+  }
+}
+
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState('todos')
   const { addToCart } = useCart()
@@ -146,7 +186,10 @@ const Products = () => {
     return (
       <div className="product-card">
         <div className="product-header">
-          <span className="product-category">{product.type}</span>
+          <div className="product-category-with-icon">
+            <span className="product-icon">{getProductIcon(product.category)}</span>
+            <span className="product-category">{product.type}</span>
+          </div>
           <span className="product-price">R$ {product.pricePerMeter.toFixed(2)}/m</span>
         </div>
         
