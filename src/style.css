@@ -142,6 +142,8 @@ p {
 .logo-text span {
   color: #6c757d;
   font-size: 0.9rem;
+  border-bottom: none;
+  text-decoration: none;
 }
 
 .desktop-nav {

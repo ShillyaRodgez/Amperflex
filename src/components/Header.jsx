@@ -58,7 +58,7 @@ const Header = () => {
                 </div>
                 <div className="logo-text">
                   <h1>Amperflex</h1>
-                  <span>Cabos & Fios</span>
+                  <span>Flexibilidade que impulsiona</span>
                 </div>
               </div>
             </Link>
