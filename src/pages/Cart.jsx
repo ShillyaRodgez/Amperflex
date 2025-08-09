@@ -252,12 +252,12 @@ const Cart = () => {
               </div>
 
               <div className="whatsapp-info">
-                <h4>📋 Sistema de Solicitação de Orçamento:</h4>
+                <h4>📋 Sistema de Orçamento:</h4>
                 <ol>
                   <li>Clique em "Finalizar via WhatsApp"</li>
                   <li><strong>Envio:</strong> Apenas descrição dos produtos (sem valores)</li>
                   <li><strong>Conteúdo:</strong> Nome, quantidade e metragem dos itens</li>
-                  <li>Solicitação profissional de orçamento</li>
+                  <li>Orçamento profissional</li>
                   <li>Carrinho limpo automaticamente após processamento</li>
                   <li>Receba seu orçamento oficial em poucos minutos</li>
                 </ol>
