@@ -113,7 +113,7 @@ export const CartProvider = ({ children }) => {
   }
 
   const generateWhatsAppMessage = () => {
-    let message = '*SOLICITAÇÃO DE ORÇAMENTO - AMPERFLEX*\n\n'
+    let message = '*ORÇAMENTO - AMPERFLEX*\n\n'
     message += '*Produtos solicitados:*\n\n'
     
     cartItems.forEach((item, index) => {
