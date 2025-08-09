@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="footer-section">
             <div className="footer-logo">
               <div className="logo-content">
-                <img src="/amperflex.png" alt="Amperflex Logo" width="150" height="100" />
+                <img src="/Amperflex/amperflex.png" alt="Amperflex Logo" width="150" height="100" />
               </div>
             </div>
             <p className="footer-description">

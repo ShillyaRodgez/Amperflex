@@ -6,7 +6,7 @@ import './style.css'
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/Amperflex">
       <App />
     </BrowserRouter>
   </React.StrictMode>,

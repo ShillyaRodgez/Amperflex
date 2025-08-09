@@ -49,7 +49,7 @@ const Header = () => {
             {/* Logo */}
             <Link to="/" className="logo">
               <div className="logo-content">
-                <img src="/amperflex.png" alt="Amperflex Logo" width="180" height="100" />
+                <img src="/Amperflex/amperflex.png" alt="Amperflex Logo" width="180" height="100" />
               </div>
             </Link>
 
